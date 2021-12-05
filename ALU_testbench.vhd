@@ -20,15 +20,39 @@ architecture alu_testbench_behavioral of alu_testbench is
 				input1 => testbench_input1,
 				input2 => testbench_input2,
 				alu_control => testbench_alu_control,
-				alu_result => testbench_alu_result,
+				result => testbench_alu_result,
 				zero => testbench_zero
 			);
 
 	sim_process: process
 	begin
+		
 		testbench_input1 <= x"00000003";
 		testbench_input2 <= x"FFFFFFFF";
 		testbench_alu_control <= "0000";
 
-	end;
+		wait for 20ns;
+
+		testbench_alu_control <= "0001";
+
+		wait for 20ns;
+
+		testbench_alu_control <= "0110";
+
+		wait for 20ns;
+
+		testbench_alu_control <= "0111";
+
+		wait for 20ns;
+
+		testbench_alu_control <= "1100";
+
+		wait for 20ns;
+
+		assert false
+		report "END"
+			severity failure;
+	END PROCESS;
+
+end;
 
