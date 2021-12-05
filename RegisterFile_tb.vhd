@@ -12,7 +12,7 @@ architecture arch of RegisterFile_tb is
 	constant T : time := 20 ns;
 
 	--input
-	signal clk, writeEnabled : std_logic;
+	signal clk, regWrite : std_logic;
 	signal readRegister1, readRegister2 : std_logic_vector(4 downto 0);
 	signal writeRegister : std_logic_vector(4 downto 0);
 	signal writeData : std_logic_vector(31 downto 0);
@@ -22,7 +22,7 @@ architecture arch of RegisterFile_tb is
 
 	-- declare record type
 	type test_vector is record
-		writeEnabled : std_logic;
+		regWrite : std_logic;
 		readRegister1, readRegister2 : std_logic_vector(4 downto 0);
 	 	writeRegister : std_logic_vector(4 downto 0);
 		writeData : std_logic_vector(31 downto 0);
@@ -43,7 +43,7 @@ begin
 	RegsiterFile_unit : entity work.RegisterFile
 		port map(
 				clk=>clk, 
-				writeEnabled=>writeEnabled,
+				regWrite=>regWrite,
 				readRegister1=>readRegister1,
 				readRegister2=>readRegister2,
 				writeRegister=>writeRegister,
@@ -61,7 +61,7 @@ begin
 			clk <= '0';
 			wait for T/2;
 
-			writeEnabled <= test_vectors(i).writeEnabled;
+			regWrite <= test_vectors(i).regWrite;
 			readRegister1 <= test_vectors(i).readRegister1;
 			readRegister2 <= test_vectors(i).readRegister2;
 			writeRegister <= test_vectors(i).writeRegister;

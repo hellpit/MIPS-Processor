@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 
 entity RegisterFile is
     port(
-		writeEnabled, clk : in std_logic;
+		regWrite, clk : in std_logic;
 		readRegister1, readRegister2 : in std_logic_vector(4 downto 0);	-- rs, rt
 		writeRegister : in std_logic_vector(4 downto 0);		-- rd
 		writeData : in std_logic_vector(31 downto 0);			-- data of rd
@@ -52,14 +52,14 @@ architecture Behavorial of RegisterFile is
 		x"31313131"  --$ra
 	);
 begin --begin architecture
-    	process(writeEnabled, clk)
+    	process(regWrite, clk)
 	begin
-    		if(rising_edge(clk) and writeEnabled = '1') then
+    		if(rising_edge(clk) and regWrite = '1') then
 			registerArray(to_integer(unsigned(writeRegister))) <= writeData;
     		end if;
 	end process;
 
-	-- regardless of writeEnabled, go read
+	-- regardless of regWrite, go read
 	readData1 <= registerArray(to_integer(unsigned(readRegister1)));
 	readData2 <= registerArray(to_integer(unsigned(readRegister2)));
 end Behavorial;
