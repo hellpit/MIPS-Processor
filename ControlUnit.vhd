@@ -28,7 +28,8 @@ architecture behavior_control_unit of ControlUnit is
     RegDst <= '0'; Jump <= '0'; Branch <= '1'; MemRead <= '0'; MemToReg <= '0'; MemWrite <= '0'; ALUSrc <= '0'; RegWrite <= '0'; ALUOp <= "01";
     when "000010" => -- jump
     RegDst <= '0'; Jump <= '1'; Branch <= '0'; MemRead <= '0'; MemToReg <= '0'; MemWrite <= '0'; ALUSrc <= '0'; RegWrite <= '0'; ALUOp <= "11";
-    --jump 
+    when "001000" => -- immediate
+    RegDst <= '1'; Jump <= '0'; Branch <= '0'; MemRead <= '1'; MemToReg <= '0'; MemWrite <= '0'; ALUSrc <= '0'; RegWrite <= '0'; ALUOp <= "10";
     when others => RegDst <= '0'; Jump <= '0'; Branch <= '0'; MemRead <= '0'; MemToReg <= '0'; MemWrite <= '0'; ALUSrc <= '0'; RegWrite <= '0'; ALUOp <= "00";
 
     end case;
