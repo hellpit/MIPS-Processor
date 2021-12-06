@@ -3,36 +3,34 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity InstructionMemory is
+entity IRAM is
     port(    PC: in std_logic_vector(31 downto 0); --program counter
         MemRSignal, clk: in std_logic; --memRSignal is 1 or 0
-        Dout: out std_logic_vector (7 downto 0) --instruction register (instruction memory)
+        Dout: out std_logic_vector (31 downto 0) --instruction register (instruction memory)
         );
-end InstructionMemory;
+end IRAM;
 
-architecture behavior_instruction_memory of InstructionMemory is
-
-signal read_addr: std_logic_vector(3 downto 0); --index for reading ram_data array
+architecture Behavioral of IRAM is
 
 -- Creates a simple array of bytes, 16 bytes total:
-type ram_type is array (0 to 15) of std_logic_vector(7 downto 0);
+type ram_type is array (0 to 15) of std_logic_vector(31 downto 0);
 constant ram_data: ram_type:=(
-x"01",
-x"2A",
-x"40",
-x"20", --add 8, 9, 10
-x"01",
-x"4B",
-x"48",
-x"25", --or 9, 10, 11
-x"8E",
-x"11",
-x"00",
-x"01", --lw 17, 1(16)
-x"01",
-x"2B",
-x"50",
-x"2A" --slt 10, 9, 11
+x"012A4020", --add t0, t1, t2
+x"014B4822", --sub t1, t2, t3
+x"018D5824", --and t3 t4 t5
+x"014B4825", --or 9, 10, 11
+x"8E110001", --lw 17, 1(16)
+x"AE300016", --sw 16, 22(17)
+x"0232802A", --slt s0 s1 s2
+x"01CF6826", --xor t5 t6 t7
+x"000F7040", --sll t6 t7 0x001
+x"000F7082", --srl t6 t7 0x002
+x"2230FFFF", --addi 16, 17, 0xFFFF
+x"3128FFFF", --andi t0 t1 0xffff
+x"3528FFFF", --ori t0 t1 0xffff
+x"29491111", --slti 9, 10, 0x1111
+x"00000000",
+x"00000000"
 );
 begin--begin architecture
         process(clk) 
@@ -41,4 +39,4 @@ begin--begin architecture
 			Dout <= ram_data(to_integer(unsigned(PC(5 downto 2))));
         	end if;
 	end process;
-end;
+end Behavioral;
