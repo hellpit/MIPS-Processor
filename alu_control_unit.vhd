@@ -33,7 +33,7 @@ architecture behavior_ALU_Control_Unit of ALU_Control_Unit is
 		        when others => Operation <= "XXXX";
 		        end case;
 		    end if;--r type instr
-		    if (ALU_OP = "010") then --i type
+		    if (ALU_OP = "101") then --i type
 		        case ALU_Function is
 			when "001000" => 
 			Operation <= "1010"; --addi
