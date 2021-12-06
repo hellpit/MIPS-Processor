@@ -13,25 +13,31 @@ architecture arch of alu_control_unit_tb is
     signal ALU_Function: std_logic_vector (5 downto 0); -- 6 bits
     signal ALU_Op : std_logic_vector (1 downto 0); -- 2bits that will be taken from control unit
     --output
-    signal Operation : std_logic_vector (2 downto 0); -- 3 bits that will be passed for ALU to do operation
+    signal Operation : std_logic_vector (3 downto 0); -- 4 bits that will be passed for ALU to do operation
 
     -- declare record type
     type test_vector is record
 	ALU_Op : std_logic_vector (1 downto 0);
         ALU_Function : std_logic_vector (5 downto 0);
-        Operation : std_logic_vector (2 downto 0);
+        Operation : std_logic_vector (3 downto 0);
     end record;
 
     type test_vector_array is array (natural range <>) of test_vector;
     constant test_vectors : test_vector_array := 
     (
        --ALU_Op, ALU Function, Operation
-	("01", "100000", "010"), --add
-	("01", "100010", "110"), --sub
-	("01", "100100", "000"), --and
-	("01", "100101", "001"), --or
-	("01", "101010", "111") --slt
-	--('1', "------", '0', '0', '0', '0', '0', '0', '0', '0', "00")    --dont care
+	("01", "100000", "0010"), --add
+	("01", "100010", "0110"), --sub
+	("01", "100100", "0000"), --and
+	("01", "100101", "0001"), --or
+	("01", "101010", "0001"), --slt
+	("01", "111010", "0100"), --slt
+
+	("10", "001000", "1111"), --addi
+	("10", "001100", "0000"), --andi
+	("10", "001101", "1001"),  --ori
+	("10", "001010", "1111") --slti
+	
     );
 begin
 
@@ -69,5 +75,6 @@ begin
         end process;
 
 end arch;
+
 
 
