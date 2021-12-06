@@ -11,13 +11,13 @@ architecture arch of alu_control_unit_tb is
     --input
     signal clk : std_logic;
     signal ALU_Function: std_logic_vector (5 downto 0); -- 6 bits
-    signal ALU_Op : std_logic_vector (1 downto 0); -- 2bits that will be taken from control unit
+    signal ALU_Op : std_logic_vector (2 downto 0); -- 3 bits that will be taken from control unit
     --output
     signal Operation : std_logic_vector (3 downto 0); -- 4 bits that will be passed for ALU to do operation
 
     -- declare record type
     type test_vector is record
-	ALU_Op : std_logic_vector (1 downto 0);
+	ALU_Op : std_logic_vector (2 downto 0);
         ALU_Function : std_logic_vector (5 downto 0);
         Operation : std_logic_vector (3 downto 0);
     end record;
@@ -26,18 +26,22 @@ architecture arch of alu_control_unit_tb is
     constant test_vectors : test_vector_array := 
     (
        --ALU_Op, ALU Function, Operation
-	("01", "100000", "0010"), --add
-	("01", "100010", "0110"), --sub
-	("01", "100100", "0000"), --and
-	("01", "100101", "0001"), --or
-	("01", "101010", "0001"), --slt
-	("01", "111010", "0100"), --slt
-
-	("10", "001000", "1111"), --addi
-	("10", "001100", "0000"), --andi
-	("10", "001101", "1001"),  --ori
-	("10", "001010", "1111") --slti
-	
+	--rtype
+	("010", "100000", "0010"), --add
+	("010", "100010", "0110"), --sub
+	("010", "100100", "0000"), --and
+	("010", "100101", "0001"), --or
+	("010", "101010", "0001"), --slt
+	("010", "111010", "0100"), --slt
+	--itype
+	("101", "001000", "1111"), --addi
+	("101", "001100", "0000"), --andi
+	("101", "001101", "1001"),  --ori
+	("101", "001010", "1111"), --slti
+	--branch
+	("001", "000100", "1100"), --beq
+	("001", "000101", "1101"), --bne
+	("001", "000110", "1110")  --blez
     );
 begin
 
@@ -75,6 +79,9 @@ begin
         end process;
 
 end arch;
+
+
+
 
 
 
