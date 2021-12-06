@@ -29,13 +29,13 @@ architecture behavior_control_unit of ControlUnit is
     when "000010" => -- jump
     RegDst <= '0'; Jump <= '1'; Branch <= '0'; MemRead <= '0'; MemToReg <= '0'; MemWrite <= '0'; ALUSrc <= '0'; RegWrite <= '0'; ALUOp <= "011";
     when "001000" => -- immediate
-    RegDst <= '1'; Jump <= '0'; Branch <= '0'; MemRead <= '1'; MemToReg <= '0'; MemWrite <= '0'; ALUSrc <= '0'; RegWrite <= '0'; ALUOp <= "10";
-    when others => RegDst <= '0'; Jump <= '0'; Branch <= '0'; MemRead <= '0'; MemToReg <= '0'; MemWrite <= '0'; ALUSrc <= '0'; RegWrite <= '0'; ALUOp <= "00";
+    RegDst <= '1'; Jump <= '0'; Branch <= '0'; MemRead <= '1'; MemToReg <= '0'; MemWrite <= '0'; ALUSrc <= '0'; RegWrite <= '0'; ALUOp <= "010";
+    when others => RegDst <= '0'; Jump <= '0'; Branch <= '0'; MemRead <= '0'; MemToReg <= '0'; MemWrite <= '0'; ALUSrc <= '0'; RegWrite <= '0'; ALUOp <= "000";
 
     end case;
     else
     --reset everything
-    RegDst <= '0'; Jump <= '0'; Branch <= '0'; MemRead <= '0'; MemToReg <= '0'; MemWrite <= '0'; ALUSrc <= '0'; RegWrite <= '0'; ALUOp <= "00";
+    RegDst <= '0'; Jump <= '0'; Branch <= '0'; MemRead <= '0'; MemToReg <= '0'; MemWrite <= '0'; ALUSrc <= '0'; RegWrite <= '0'; ALUOp <= "000";
     end if; -- end if staement for reset
 
     end process;
