@@ -24,7 +24,7 @@ architecture Behavioral of MIPS is
 	signal readData1, readData2 : std_logic_vector(31 downto 0);
 	--for alu
 	signal aluResult : std_logic_vector(31 downto 0);
-	signal operand1, operand2 : std_logic_vector(31 downto 0);
+	signal operand2 : std_logic_vector(31 downto 0);
 	signal aluZero : std_logic;
 	--for alu control unit
 	signal aluControl : std_logic_vector(3 downto 0);
@@ -33,7 +33,7 @@ architecture Behavioral of MIPS is
 	--for sign extender
 	signal inputExtended : std_logic_vector(31 downto 0);
 	--jump shenanigans
-	signal jump2BitShift : std_logic_vector(27 downto 0);
+	--signal jump2BitShift : std_logic_vector(27 downto 0);
 begin
 	--program counter
         process(clk, reset) 
@@ -56,7 +56,7 @@ begin
 		);
 	
 	--shift jump address from 26->28bit now, since we may need it later
-	jump2BitShift <= instruction(25 downto 0) & "00";
+	--jump2BitShift <= instruction(25 downto 0) & "00";
 
 	--pass instruction into control unit
 	MIPS_CONTROL: entity work.ControlUnit
@@ -107,7 +107,6 @@ begin
 	--pass into alu control unit
 	MIPS_ALU_CTRL_UNIT: entity work.ALU_Control_Unit
 		port map(
-			clk=>clk,
 	  		ALU_Function=>instruction(5 downto 0),	--from IRAM
 	  		ALU_Op=> aluop,				--from ctrl unit
 	  		Operation=>aluControl			--to alu
@@ -134,7 +133,7 @@ begin
 
 	--NEED: immediate shift 1?
 
-	--TODO: modify program counter based on jump/branch instructions
+	--modify program counter based on jump/branch instructions
 	nextPC <= incrementedPC;
 
 	--pass into data memory
@@ -145,7 +144,7 @@ begin
 			writeData=>readData2, 	--from reg file
 			memWrite=>memWrite,	--from ctrl unit
 			memRead=>memRead,	--from ctrl unit
-			readData=>readData	--to mux
+			readData=>readData	--to DM mux
 		);
 
 	-- write back

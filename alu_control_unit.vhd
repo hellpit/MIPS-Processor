@@ -4,7 +4,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity ALU_Control_Unit is
-    port( clk: in std_logic;
+    port(
 	  ALU_Function: in std_logic_vector (5 downto 0); -- 6 bits 
 	  ALU_Op: in std_logic_vector (2 downto 0); -- 3its that will be taken from control unit
 	  Operation: out std_logic_vector (3 downto 0) -- 4 bits that will be passed for ALU to do operation
@@ -15,7 +15,6 @@ architecture behavior_ALU_Control_Unit of ALU_Control_Unit is
     begin --begin architecture
 	process(ALU_Op, ALU_Function)
 	    begin
-		if(rising_edge(clk)) then
 	            if(ALU_OP = "010") then --r-type
 		        case ALU_Function is
 		        when "100000" => --add
@@ -57,7 +56,6 @@ architecture behavior_ALU_Control_Unit of ALU_Control_Unit is
 			when others => Operation <= "0000";
 			end case;
 		    end if; --beq
-		end if; --for clk
 	end process;
 end;
 

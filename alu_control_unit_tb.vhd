@@ -47,7 +47,6 @@ begin
 
     control_unit_unit : entity work.alu_control_unit--INSERT FILENAME HERE
         port map( 
-		clk => clk,
 		ALU_Op => ALU_Op, 
 		ALU_Function => ALU_Function, 
 		Operation => Operation

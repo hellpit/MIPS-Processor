@@ -5,7 +5,7 @@ entity alu_testbench is
 end alu_testbench;
 
 architecture alu_testbench_behavioral of alu_testbench is
-
+	constant T : time := 20 ns;
 	signal testbench_input1: std_logic_vector(31 downto 0) := (others => '0');
 	signal testbench_input2: std_logic_vector(31 downto 0) := (others => '0');
 	signal testbench_alu_control: std_logic_vector(3 downto 0) := (others => '0');
@@ -32,31 +32,31 @@ architecture alu_testbench_behavioral of alu_testbench is
 
 		testbench_alu_control <= "0000";	--input1 and input2
 
-		wait for 20ns;
+		wait for T;
 		testbench_alu_control <= "0001";	--input1 or input2
 
-		wait for 20ns;
+		wait for T;
 		testbench_alu_control <= "0010";	--input1 + input2
 
-		wait for 20ns;
+		wait for T;
 		testbench_alu_control <= "0110";	--input1 - input2
 
-		wait for 20ns;
+		wait for T;
 		testbench_alu_control <= "0111";	--slt
 
-		wait for 20ns;
+		wait for T;
 		testbench_alu_control <= "1100";	--beq input1, input2
 
-		wait for 20ns;
+		wait for T;
 		testbench_alu_control <= "1010";	--addi
 
-		wait for 20ns;
+		wait for T;
 		testbench_alu_control <= "1111";	--slti
 
-		wait for 20ns;
+		wait for T;
 		testbench_alu_control <= "1101";	--bne input1, input2
 
-		wait for 20ns;
+		wait for T;
 		testbench_alu_control <= "1110";	--blez
 
 		assert false
