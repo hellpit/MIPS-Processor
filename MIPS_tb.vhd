@@ -25,14 +25,14 @@ architecture arch of MIPS_tb is
 	type test_vector_array is array (natural range <>) of test_vector;
 	constant test_vectors : test_vector_array := (
 			--reset, newPC
-			('1', x"00000000"),
-			('0', x"00000000"),
-			('0', x"00000000"),
-			('0', x"00000000"),
-			('0', x"00000000"),
-			('0', x"00000000"),
-			('0', x"00000000"),
-			('0', x"00000000")
+			('1', x"00000004"),
+			('0', x"00000008"),
+			('0', x"0000000C"),
+			('0', x"00000010"),
+			('0', x"00000014"),
+			('0', x"00000018"),
+			('0', x"0000001C"),
+			('0', x"00000020")
 		);
 begin
 
@@ -42,7 +42,6 @@ begin
 				reset=>reset, 
 				newPC=>newPC
 		);
-
 	--cont. clock	
     	process 
     	begin
