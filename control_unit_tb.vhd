@@ -15,27 +15,27 @@ architecture arch of control_unit_tb is
 	signal opcode : std_logic_vector(5 downto 0);
 	--output
 	signal regdst, jump, branch, memread, memtoreg, memwrite, alusrc, regwrite : std_logic;
-	signal aluop : std_logic_vector(1 downto 0);
+	signal aluop : std_logic_vector(2 downto 0); --3 bits
 
 	-- declare record type
 	type test_vector is record
 		reset : std_logic;
 		opcode : std_logic_vector(5 downto 0);
 		regdst, jump, branch, memread, memtoreg, memwrite, alusrc, regwrite : std_logic;
-		aluop : std_logic_vector(1 downto 0);
+		aluop : std_logic_vector(2 downto 0); --3 bits
 	end record;
 
 	type test_vector_array is array (natural range <>) of test_vector;
 	constant test_vectors : test_vector_array := 
 	(
 		--reset, opcode, regdst, jump, branch, memread, memtoreg, memwrite, alusrc, regwrite, aluop
-		('0', "000000", '1', '0', '0', '0', '0', '0', '0', '1', "10"),	--r-type
-		('0', "100011", '0', '0', '0', '1', '1', '0', '1', '1', "00"),	--lw
-		('0', "101011", '0', '0', '0', '0', '0', '1', '1', '0', "00"),	--sw
-		('0', "000100", '0', '0', '1', '0', '0', '0', '0', '0', "01"),	--beq
-		('0', "000010", '0', '1', '0', '0', '0', '0', '0', '0', "11"),	--jump
-		('0', "001000", '1', '0', '0', '1', '0', '0', '0', '0', "10"),	--i-type
-		('1', "------", '0', '0', '0', '0', '0', '0', '0', '0', "00") 	--reset
+		('0', "000000", '1', '0', '0', '0', '0', '0', '0', '1', "010"),	--r-type
+		('0', "100011", '0', '0', '0', '1', '1', '0', '1', '1', "000"),	--lw
+		('0', "101011", '0', '0', '0', '0', '0', '1', '1', '0', "000"),	--sw
+		('0', "000100", '0', '0', '1', '0', '0', '0', '0', '0', "001"),	--beq
+		('0', "000010", '0', '1', '0', '0', '0', '0', '0', '0', "011"),	--jump
+		('0', "001000", '1', '0', '0', '1', '0', '0', '0', '0', "101"),	--i-type
+		('1', "------", '0', '0', '0', '0', '0', '0', '0', '0', "000") 	--reset
 	);
 begin
 
