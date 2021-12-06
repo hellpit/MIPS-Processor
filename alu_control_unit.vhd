@@ -30,7 +30,7 @@ architecture behavior_ALU_Control_Unit of ALU_Control_Unit is
 		        Operation <= "0111";
 			when "111010" => --this is made up
 			Operation <= "0100"; --xor
-		        when others => Operation <= "XXXX";
+		        when others => Operation <= "0000";
 		        end case;
 		    end if;--r type instr
 		    if (ALU_OP = "101") then --i type
@@ -43,7 +43,7 @@ architecture behavior_ALU_Control_Unit of ALU_Control_Unit is
 			Operation <= "1001"; --ori
 			when "001010" =>
 			Operation <= "1111"; -- slti
-			when others => Operation <= "XXXX"; 
+			when others => Operation <= "0000"; 
 		        end case;
 		    end if; --i type instr
 		    if (ALU_OP = "001") then -- branch 
@@ -54,7 +54,7 @@ architecture behavior_ALU_Control_Unit of ALU_Control_Unit is
 			Operation <= "1101"; --bne (mu)
 			when "000110" =>
 			Operation <= "1110"; --blez (mu)
-			when others => Operation <= "XXXX";
+			when others => Operation <= "0000";
 			end case;
 		    end if; --beq
 		end if; --for clk
