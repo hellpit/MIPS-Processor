@@ -35,7 +35,7 @@ begin
 				else
 					aluResult <= x"00000000";
 				end if;
-			when "1100" => aluResult <= input1 nor input2;
+			--when "1100" => aluResult <= input1 nor input2;
 			when "1010" => aluResult <= std_logic_vector(unsigned(input1) + (unsigned("0000000000000000" & immediateInput))); --addi
 			when "1000" => aluResult <= input1 and "0000000000000000" & immediateInput; --andi
 			when "1001" => aluResult <= input1 or "0000000000000000" & immediateInput; --ori
@@ -51,8 +51,14 @@ begin
 				else
 					aluResult <= x"00000000";
 				end if;
-			when "1100" => --bne
-				if (signed(input1) not = signed(input2)) then
+			when "1101" => --bne
+				if (signed(input1) /= signed(input2)) then
+					aluResult <= x"00000001";
+				else
+					aluResult <= x"00000000";
+				end if;
+			when "1110" => --blez (less than equal to 0)
+				if (signed(input1) <= 0) then
 					aluResult <= x"00000001";
 				else
 					aluResult <= x"00000000";
