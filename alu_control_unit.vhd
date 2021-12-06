@@ -7,7 +7,7 @@ entity ALU_Control_Unit is
     port( clk: in std_logic;
 	  ALU_Function: in std_logic_vector (5 downto 0); -- 6 bits 
 	  ALU_Op: in std_logic_vector (2 downto 0); -- 2bits that will be taken from control unit
-	  Operation: out std_logic_vector (3 downto 0) -- 3 bits that will be passed for ALU to do operation
+	  Operation: out std_logic_vector (3 downto 0) -- 4 bits that will be passed for ALU to do operation
      );
 end ALU_Control_Unit;
 
