@@ -4,9 +4,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity IRAM is
-    port(    PC: in std_logic_vector(31 downto 0); --program counter
-        MemRSignal, clk: in std_logic; --memRSignal is 1 or 0
-        Dout: out std_logic_vector (31 downto 0) --instruction register (instruction memory)
+    port(    
+		PC: in std_logic_vector(31 downto 0); --program counter
+        	clk: in std_logic;
+        	Dout: out std_logic_vector (31 downto 0) --instruction register (instruction memory)
         );
 end IRAM;
 
@@ -35,7 +36,7 @@ x"00000000"
 begin--begin architecture
         process(clk) 
         begin
-                if (rising_edge(clk) and MemRSignal = '1') then 
+                if (rising_edge(clk)) then 
 			Dout <= ram_data(to_integer(unsigned(PC(5 downto 2))));
         	end if;
 	end process;
