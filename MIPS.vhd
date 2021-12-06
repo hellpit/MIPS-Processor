@@ -25,6 +25,7 @@ architecture Behavioral of MIPS is
 	--for alu
 	signal aluResult : std_logic_vector(31 downto 0);
 	signal operand1, operand2 : std_logic_vector(31 downto 0);
+	signal aluZero : std_logic;
 	--for alu control unit
 	signal aluControl : std_logic_vector(3 downto 0);
 	--for data memory
@@ -121,7 +122,15 @@ begin
 			muxOutput=>operand2	--to alu
 		);
 	
-	--TODO: alu
+	--alu
+	MIPS_ALU: entity work.alu
+		port map(
+			input1=>readData1,		--from reg file
+			input2=>operand2,		--from alu mux(reg file / sign extender)
+			alu_control=>aluControl,	--from alu ctrl
+			result=>aluResult,		--to DM and DM mux
+			zero=>aluZero			--to jump mux
+		);
 
 	--NEED: immediate shift 1?
 
