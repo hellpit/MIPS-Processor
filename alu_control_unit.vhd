@@ -28,7 +28,7 @@ architecture behavior_ALU_Control_Unit of ALU_Control_Unit is
 		        Operation <= "0001";
 		        when "101010" => --slt
 		        Operation <= "0111";
-			when "111010" => --this is made up
+			when "111010" => 
 			Operation <= "0100"; --xor
 		        when others => Operation <= "0000";
 		        end case;
@@ -49,11 +49,11 @@ architecture behavior_ALU_Control_Unit of ALU_Control_Unit is
 		    if (ALU_OP = "001") then -- branch 
 		        case ALU_Function is --6 bit op code taken in 
 			when "000100" =>
-			Operation <= "1100"; --beq (mu)
+			Operation <= "1100"; --beq 
 			when "000101" =>
-			Operation <= "1101"; --bne (mu)
+			Operation <= "1101"; --bne 
 			when "000110" =>
-			Operation <= "1110"; --blez (mu)
+			Operation <= "1110"; --blez 
 			when others => Operation <= "0000";
 			end case;
 		    end if; --beq
