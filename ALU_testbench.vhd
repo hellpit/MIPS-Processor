@@ -29,25 +29,35 @@ architecture alu_testbench_behavioral of alu_testbench is
 		
 		testbench_input1 <= x"00000003";
 		testbench_input2 <= x"FFFFFFFF";
-		testbench_alu_control <= "0000";
+
+		testbench_alu_control <= "0000";	--input1 and input2
 
 		wait for 20ns;
-
-		testbench_alu_control <= "0001";
-
-		wait for 20ns;
-
-		testbench_alu_control <= "0110";
+		testbench_alu_control <= "0001";	--input1 or input2
 
 		wait for 20ns;
-
-		testbench_alu_control <= "0111";
-
-		wait for 20ns;
-
-		testbench_alu_control <= "1100";
+		testbench_alu_control <= "0010";	--input1 + input2
 
 		wait for 20ns;
+		testbench_alu_control <= "0110";	--input1 - input2
+
+		wait for 20ns;
+		testbench_alu_control <= "0111";	--slt
+
+		wait for 20ns;
+		testbench_alu_control <= "1100";	--beq input1, input2
+
+		wait for 20ns;
+		testbench_alu_control <= "1010";	--addi
+
+		wait for 20ns;
+		testbench_alu_control <= "1111";	--slti
+
+		wait for 20ns;
+		testbench_alu_control <= "1101";	--bne input1, input2
+
+		wait for 20ns;
+		testbench_alu_control <= "1110";	--blez
 
 		assert false
 		report "END"
