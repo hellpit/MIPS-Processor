@@ -6,8 +6,8 @@ use ieee.numeric_std.all;
 entity ALU_Control_Unit is
     port( clk: in std_logic;
 	  ALU_Function: in std_logic_vector (5 downto 0); -- 6 bits 
-	  ALU_Op: in std_logic_vector (1 downto 0); -- 2bits that will be taken from control unit
-	  Operation: out std_logic_vector (3 downto 0) -- 3 bits that will be passed for ALU to do operation
+	  ALU_Op: in std_logic_vector (2 downto 0); -- 2bits that will be taken from control unit
+	  Operation: out std_logic_vector (3 downto 0) -- 4 bits that will be passed for ALU to do operation
      );
 end ALU_Control_Unit;
 
@@ -16,7 +16,7 @@ architecture behavior_ALU_Control_Unit of ALU_Control_Unit is
 	process(ALU_Op, ALU_Function)
 	    begin
 		if(rising_edge(clk)) then
-	            if(ALU_OP = "01") then
+	            if(ALU_OP = "010") then --r-type
 		        case ALU_Function is
 		        when "100000" => --add
  		        Operation <= "0010";
@@ -30,25 +30,42 @@ architecture behavior_ALU_Control_Unit of ALU_Control_Unit is
 		        Operation <= "0111";
 			when "111010" => --this is made up
 			Operation <= "0100"; --xor
-		        when others => Operation <= "XXXX";
+		        when others => Operation <= "0000";
 		        end case;
 		    end if;--r type instr
-		    if (ALU_OP = "10") then 
+		    if (ALU_OP = "101") then --i type
 		        case ALU_Function is
 			when "001000" => 
 			Operation <= "1010"; --addi
 			when "001100" => 
-			Operation <= "0000"; --andi
+			Operation <= "1000"; --andi
 			when "001101" => 
 			Operation <= "1001"; --ori
 			when "001010" =>
 			Operation <= "1111"; -- slti
-			when others => Operation <= "XXXX"; 
+			when others => Operation <= "0000"; 
 		        end case;
 		    end if; --i type instr
+		    if (ALU_OP = "001") then -- branch 
+		        case ALU_Function is --6 bit op code taken in 
+			when "000100" =>
+			Operation <= "1100"; --beq (mu)
+			when "000101" =>
+			Operation <= "1101"; --bne (mu)
+			when "000110" =>
+			Operation <= "1110"; --blez (mu)
+			when others => Operation <= "0000";
+			end case;
+		    end if; --beq
 		end if; --for clk
 	end process;
 end;
+
+
+
+
+
+
 
 
 
