@@ -32,10 +32,10 @@ architecture arch of RegisterFile_tb is
 	type test_vector_array is array (natural range <>) of test_vector;
 	constant test_vectors : test_vector_array := (
 		--writeE, readR1, readR2, writeR, writeD, readD1, readD2
-		('1', "01000", "01001", "01010", x"10101010", x"88888888", x"99999999"), --read t0, t1; write to t2
-		('1', "10000", "10001", "10010", x"18181818", x"16161616", x"17171717"), --read s0, s1; write to s2
-		('0', "00010", "00011", "00000", x"00000000", x"22222222", x"33333333"), --disable write; read v0, v1
-		('1', "11000", "11001", "01011", x"16548138", x"24242424", x"25252525") --read t8, t9; write to t3
+		('1', "01000", "01001", "01010", x"0000000A", x"00000008", x"00000009"), --read t0, t1; write to t2
+		('1', "10000", "10001", "10010", x"00000001", x"00000000", x"00000004"), --read s0, s1; write to s2
+		('0', "00010", "00011", "00000", x"00000000", x"00000002", x"00000003"), --disable write; read v0, v1
+		('1', "11000", "11001", "01011", x"16548138", x"00000007", x"00000008") --read t8, t9; write to t3
 		);
 
 begin

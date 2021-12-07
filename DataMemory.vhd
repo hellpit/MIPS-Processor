@@ -41,10 +41,11 @@ begin
 			if (memWrite = '1') then
 				memory(to_integer(unsigned(address)) / 4) <= writeData;
 			end if;
-			if (memRead = '1') then
-				readData <= memory(to_integer(unsigned(address)) / 4);
-			end if;
+			--if (memRead = '1') then
+				--readData <= memory(to_integer(unsigned(address)) / 4);
+			--end if;
 		end if;
 	end process;
+	readData <= memory(to_integer(unsigned(address)) / 4) when memRead = '1' else x"00000000";
 
 end Behavorial;

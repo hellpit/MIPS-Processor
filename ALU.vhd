@@ -64,7 +64,7 @@ begin
 				end if;
 			
 			when others => 
-			aluResult<= input1 + input2;
+			aluResult<= std_logic_vector(unsigned(input1) + unsigned(input2));
 
 		end case;
 

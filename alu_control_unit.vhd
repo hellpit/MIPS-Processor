@@ -56,6 +56,9 @@ architecture behavior_ALU_Control_Unit of ALU_Control_Unit is
 			when others => Operation <= "0000";
 			end case;
 		    end if; --beq
+		    if (ALU_OP = "000") then -- lw/sw 
+		        Operation <= "0011";
+		    end if; --lw/sw	    
 	end process;
 end;
 

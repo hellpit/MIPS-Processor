@@ -34,9 +34,9 @@ architecture arch of DataMemory_tb is
 		(x"00000000", x"00000000", '1', '0', x"00000000"), --read 0th element
 		(x"00000004", x"aaaaaaaa", '0', '1', x"00000000"), --write xAAAAAAAA to 1st element
 		(x"00000004", x"00000000", '1', '0', x"aaaaaaaa"), --read 1st element (expect xAAAAAAAA)
-		(x"00000004", x"aeaeaeae", '0', '1', x"aaaaaaaa"), --write xAEAEAEAE to 1st element
-		(x"00000008", x"bcbcbcbc", '0', '1', x"aaaaaaaa"), --write xBCBCBCBC to 2nd element
-		(x"0000000C", x"12345678", '0', '1', x"aaaaaaaa"), --write x12345678 to 3rd element
+		(x"00000004", x"aeaeaeae", '0', '1', x"00000000"), --write xAEAEAEAE to 1st element
+		(x"00000008", x"bcbcbcbc", '0', '1', x"00000000"), --write xBCBCBCBC to 2nd element
+		(x"0000000C", x"12345678", '0', '1', x"00000000"), --write x12345678 to 3rd element
 		(x"0000003C", x"00000000", '1', '0', x"00000000"), --read 15th element (expect x00000000)
 		(x"0000000C", x"00000000", '1', '0', x"12345678"), --read 3rd element (expect x12345678)	
 		(x"00000008", x"00000000", '1', '0', x"BCBCBCBC"), --read 2nd element (expect xBCBCBCBC)	
