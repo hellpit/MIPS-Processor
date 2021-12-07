@@ -12,9 +12,10 @@ end MIPS;
 
 architecture Behavioral of MIPS is
 	--handles all program counter work
-	signal currentPC, nextPC, incrementedPC : std_logic_vector(31 downto 0);
+	signal currentPC : std_logic_vector(31 downto 0) := x"00000000";
+	signal nextPC : std_logic_vector(31 downto 0);
 	--from instruction memory
-	signal instruction : std_logic_vector(31 downto 0);
+	signal instruction : std_logic_vector(31 downto 0) := x"00000000";
 	--for control unit
 	signal RegDst, Jump, Branch, MemRead, MemToReg, MemWrite, ALUSrc, RegWrite : std_logic;
 	signal aluop : std_logic_vector(2 downto 0);
@@ -32,8 +33,7 @@ architecture Behavioral of MIPS is
 	signal readData : std_logic_vector(31 downto 0);
 	--for sign extender
 	signal inputExtended : std_logic_vector(31 downto 0);
-	--jump shenanigans
-	--signal jump2BitShift : std_logic_vector(27 downto 0);
+
 begin
 	--program counter
         process(clk, reset) 
@@ -45,7 +45,7 @@ begin
 			currentPC <= x"00000000";
 		end if;
 	end process;
-	incrementedPC <= std_logic_vector(unsigned(currentPC) + x"00000004"); --increment pc + 4
+	nextPC <= std_logic_vector(unsigned(currentPC) + x"00000004"); --increment pc + 4
 	
 	--read instruction
 	MIPS_IRAM: entity work.IRAM
@@ -54,9 +54,6 @@ begin
 			clk=>clk,		
 			Dout=>instruction	--to ctrl unit, IRAM, Sign Extender
 		);
-	
-	--shift jump address from 26->28bit now, since we may need it later
-	--jump2BitShift <= instruction(25 downto 0) & "00";
 
 	--pass instruction into control unit
 	MIPS_CONTROL: entity work.ControlUnit
@@ -131,10 +128,6 @@ begin
 			zero=>aluZero			--to jump mux
 		);
 
-	--NEED: immediate shift 1?
-
-	--modify program counter based on jump/branch instructions
-	nextPC <= incrementedPC;
 
 	--pass into data memory
 	MIPS_DM: entity work.DataMemory
@@ -156,6 +149,6 @@ begin
 			muxOutput=>writeData	--to register file
 		);
 
-	-- output
+	-- output PC for next instruction
 	newPC <= nextPC;
 end Behavioral;
