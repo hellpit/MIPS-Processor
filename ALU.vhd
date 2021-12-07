@@ -63,8 +63,8 @@ begin
 					aluResult <= x"00000000";
 				end if;
 			
-			when others => null;
-			aluResult <= x"00000000";
+			when others => 
+			aluResult<= input1 + input2;
 
 		end case;
 
